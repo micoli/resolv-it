@@ -1,0 +1,7 @@
+{
+  "name": "resolv-it",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

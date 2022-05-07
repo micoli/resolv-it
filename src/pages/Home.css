@@ -1,0 +1,22 @@
+ion-content{
+    --background: url("../../public/assets/background.png");
+    /*--background-size: cover;*/
+    /*background: green;*/
+}
+.homepage ion-content h1{
+    font-size: xxx-large;
+    font-weight: bolder;
+    color:white;
+    width:100%;
+    text-align: center;
+    text-shadow: 1px 0 0 #000
+}
+.homepage ion-content h2{
+    font-size: xx-large;
+    font-weight: bolder;
+    color:white;
+    width:100%;
+    text-align: center;
+    padding-bottom:2em;
+    text-shadow: 1px 0 0 #000
+}

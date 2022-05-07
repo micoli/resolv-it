@@ -1,0 +1,21 @@
+.title{
+    z-index:10;
+}
+
+ion-img {
+    z-index: 5;
+    /*transition: transform .8s; !* Animation *!*/
+    /*object-fit: cover;*/
+}
+
+ion-img::part(image) {
+    border-radius: 30px !important;
+}
+.title{
+    width:100%;
+    font-size:xx-large;
+    font-weight:bolder;
+    text-align:center;
+    padding-bottom:10px;
+    text-shadow: 1px 0 0 #000
+}
