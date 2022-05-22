@@ -5,7 +5,7 @@ import {
     IonTitle,
     IonButton, IonHeader, useIonRouter
 } from '@ionic/react';
-
+import './Board.css';
 
 const Board: React.FC = () => {
     const router = useIonRouter();
@@ -13,11 +13,11 @@ const Board: React.FC = () => {
         router.push('/home', "forward", "push")
     }
     return (
-        <IonPage>
-            <IonHeader>
+        <IonPage >
+            <IonHeader className="board">
                 <IonTitle>Board</IonTitle>
             </IonHeader>
-            <IonContent>
+            <IonContent className="board">
                 <h1>Vous avez fait gagner 12 ans, 4 mois et 20 heures à la recherche !</h1>
                 <div className="center">
                     <IonButton color="light" onClick={onHome}>Home</IonButton>

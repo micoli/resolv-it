@@ -29,6 +29,7 @@ import Hexxed from "./pages/games/Hexxed/Hexxed";
 import Board from "./pages/Board";
 import QuantumMinds from "./pages/games/QuantumMinds/QuantumMinds";
 import Apetopia from "./pages/games/Apetopia/Apetopia";
+import animationBuilder from "./AnimationBuilder";
 
 setupIonicReact();
 
@@ -36,7 +37,7 @@ const App: React.FC = () => (
     <IonApp>
         <IonReactRouter>
             <IonTabs>
-                <IonRouterOutlet>
+                <IonRouterOutlet animation={animationBuilder}>
                     <Route exact path="/home">
                         <Home/>
                     </Route>
