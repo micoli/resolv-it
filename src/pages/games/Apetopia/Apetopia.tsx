@@ -1,14 +1,63 @@
-import {IonButton, IonContent, IonFooter, IonHeader, IonPage, IonRouterLink, IonTitle, IonToolbar} from '@ionic/react';
+import {GameInstance, IonPhaser} from "@ion-phaser/react";
+import Phaser from "phaser";
+import Game from "./Game";
+import {Fragment, useEffect, useRef, useState} from "react";
+import {
+    IonButton,
+    IonContent, IonFooter,
+    IonHeader,
+    IonPage,
+    IonRouterLink,
+    IonTitle,
+    IonToolbar,
+    useIonViewWillLeave
+} from "@ionic/react";
 import GameIntro from "../../../components/GameIntro/GameIntro";
-import {Fragment, useState} from "react";
-import YoutubeEmbed from "../../../components/YoutubeEmbed";
 import GameResult from "../../../components/GameResult/GameResult";
-import './Apetopia.css';
+import PhaserMatterCollisionPlugin from "phaser-matter-collision-plugin";
 
-const Apetopia: React.FC = () => {
+const gameConfig:GameInstance = {
+    type: Phaser.AUTO,
+    parent: 'phaser-atopia',
+    width: 400,
+    height: 600,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
+    scene: Game,
+}
+
+const Hexxed: React.FC = () => {
+    const gameRef = useRef<HTMLIonPhaserElement|any>(null)
+    const [game, setGame] = useState<GameInstance>()
+    const [initialize, setInitialize] = useState(false)
     const [displayMode, setDisplayMode] = useState('INTRO');
-    const title: string = 'Apetopia';
-    const videoId: string = 'JxgLSINp6FA';
+
+    const destroy = () => {
+        gameRef.current?.destroy()
+        setInitialize(false)
+        setGame(undefined)
+    }
+
+    useEffect(() => {
+        if (initialize) {
+            console.log('init',gameConfig)
+            const game = Object.assign({}, gameConfig);
+            // @ts-ignore
+            //game.plugins.scene[0].key=(Math.random() + 1).toString(36).substring(7);
+            setGame(game)
+        }
+    },[initialize])
+
+    useEffect(() => {
+        return () => {
+            destroy()
+        }
+    },[]);
+    useIonViewWillLeave(destroy)
+    const title: string = 'Atopia';
+
     if (displayMode === 'INTRO') {
         return (
             <GameIntro
@@ -20,7 +69,10 @@ const Apetopia: React.FC = () => {
                     <div>Franchir la porte dont la couleur se rapproche le plus de celle du ciel.</div>
                 </Fragment>)}
                 baseline="Resoudre cette enigme pour dejouer la mécanique infernale"
-                onClick={() => setDisplayMode('GAME')}
+                onClick={() => {
+                    setDisplayMode('GAME')
+                    setTimeout(()=>setInitialize(true),200);
+                }}
             />
         );
     }
@@ -29,11 +81,11 @@ const Apetopia: React.FC = () => {
         return (
             <GameResult
                 title={title}
-                gameTime={231}
-                ranking={133}
+                gameTime={123}
+                ranking={12333}
                 rankingBase={153786}
-                dataImpact={"1.5 Mo de données récoltés"}
-                collectedPoints={6}
+                dataImpact={"1 Mo de données récoltés"}
+                collectedPoints={12}
             />
         );
     }
@@ -46,16 +98,15 @@ const Apetopia: React.FC = () => {
                     <IonRouterLink routerLink={"/"}>Home</IonRouterLink>
                 </IonToolbar>
             </IonHeader>
-            <IonContent fullscreen className="center">
-                <YoutubeEmbed embedId={videoId}/>
-                <div className={"center"}>
-                    <IonButton color="light" onClick={() => setDisplayMode('GAME_RESULT')}>Fin de jeu</IonButton>
-                </div>
+            <IonContent fullscreen className="center black-background">
+                { initialize && <IonButton color="light" onClick={() => setDisplayMode('GAME_RESULT')}>Fin de jeu</IonButton>}
+                <div id="phaser-atopia"></div>
+                { initialize && <IonPhaser ref={gameRef} game={game} initialize={initialize}/>}
             </IonContent>
             <IonFooter>
             </IonFooter>
         </IonPage>
     );
-};
+}
 
-export default Apetopia;
+export default Hexxed;
