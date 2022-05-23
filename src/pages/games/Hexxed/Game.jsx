@@ -11,29 +11,44 @@ class Game extends Phaser.Scene{
 
     create() {
         var print = this.add.text(0, 0, 'Click any tile');
+        const toggleTile = (tile) =>{
+            if (tile.fillColor === 0x00ffff) {
+                tile.setFillStyle(0xffff00, 1)
+            } else {
+                tile.setFillStyle(0x00ffff, 1)
+            }
+        }
         var board = this.rexBoard.add.board({
             grid: {
                 gridType: 'hexagonGrid',
-                x: 60,
-                y: 60,
-                size: 30,
+                x: 20,
+                y: 20,
+                size: 28,
                 staggeraxis: 'y',
                 staggerindex: 'odd'
             }
         })
             .setInteractive()
             .on('tiledown', function (pointer, tileXY) {
-                print.text = `${tileXY.x},${tileXY.y}`;
+                var tile = board.tileXYZToChess(tileXY.x, tileXY.y, 0);
+                if (tile) {
+                    print.text = `${tileXY.x},${tileXY.y}`;
+                    toggleTile(tile);
+                }
             })
             .on('tileover', function (pointer, tileXY) {
                 var tile = board.tileXYZToChess(tileXY.x, tileXY.y, 0);
                 if (tile) {
+                    print.text = `${tileXY.x},${tileXY.y}`;
+                    toggleTile(tile);
                     tile.setAlpha(.5)
                 }
             })
             .on('tileout', function (pointer, tileXY) {
                 var tile = board.tileXYZToChess(tileXY.x, tileXY.y, 0);
                 if (tile) {
+                    print.text = `${tileXY.x},${tileXY.y}`;
+                    toggleTile(tile);
                     tile.setAlpha(1)
                 }
             })
@@ -55,7 +70,7 @@ class Game extends Phaser.Scene{
             graphics.strokePoints(board.getGridPoints(x, y, true), true);
 
             worldXY = board.tileXYToWorldXY(x, y);
-            rexBoardAdd.shape(board, x, y, 0, Random(0, 0xffffff));
+            rexBoardAdd.shape(board, x, y, 0, Random(0,0xffffff));
         })
 
         this.rexBoard.createTileTexture(board, 'tile', 0xffffff);
