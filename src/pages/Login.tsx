@@ -1,12 +1,11 @@
-import './Home.css';
 import {
     IonContent,
     IonPage,
-    IonTitle,
     IonItem,
     IonLabel,
-    IonButton, IonInput, IonHeader, useIonRouter
+    IonButton, IonInput, useIonRouter
 } from '@ionic/react';
+import IonPageHeader from "../components/IonPageHeader";
 
 
 const Login: React.FC = () => {
@@ -16,11 +15,12 @@ const Login: React.FC = () => {
     }
     return (
         <IonPage>
-            <IonHeader>
-                <IonTitle>Connexion</IonTitle>
-            </IonHeader>
+            <IonPageHeader title={"Connexion"}/>
             <IonContent>
                 <form className="ion-padding">
+                    <h1>
+                        Connexion
+                    </h1>
                     <IonItem>
                         <IonLabel position="floating">Username</IonLabel>
                         <IonInput/>
@@ -29,7 +29,7 @@ const Login: React.FC = () => {
                         <IonLabel position="floating">Password</IonLabel>
                         <IonInput type="password"/>
                     </IonItem>
-                    <IonButton onClick={onLogin} className="ion-margin-top">
+                    <IonButton className="ion-margin-top"color="white" fill={"outline"} expand="block" onClick={onLogin}>
                         J'accede a mon board
                     </IonButton>
                 </form>

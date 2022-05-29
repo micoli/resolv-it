@@ -1,5 +1,4 @@
 import {IonImg} from '@ionic/react';
-import './GamePreview.css';
 
 type GamePreviewProps = {
     previewUrl: string;
@@ -8,7 +7,7 @@ type GamePreviewProps = {
 }
 const GamePreview: React.FC<GamePreviewProps> = ({title, previewUrl, onClick}) => {
     return (
-        <div onClick={onClick}>
+        <div className="gamePreview" onClick={onClick}>
             <IonImg className="preview" src={previewUrl} />
             <div className="title">{title}</div>
         </div>

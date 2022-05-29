@@ -1,14 +1,67 @@
-import {IonButton, IonContent, IonFooter, IonHeader, IonPage, IonRouterLink, IonTitle, IonToolbar} from '@ionic/react';
+import {
+    IonButton,
+    IonContent,
+    IonFooter,
+    IonPage,
+    useIonViewWillLeave
+} from '@ionic/react';
 import GameIntro from "../../../components/GameIntro/GameIntro";
-import {Fragment, useState} from "react";
-import YoutubeEmbed from "../../../components/YoutubeEmbed";
+import {Fragment, useEffect, useRef, useState} from "react";
 import GameResult from "../../../components/GameResult/GameResult";
-import './QuantumMinds.css';
+import Game from "./Game";
+import {GameInstance, IonPhaser} from "@ion-phaser/react";
+import Phaser from "phaser";
+import BoardPlugin from "phaser3-rex-plugins/plugins/board-plugin";
+import IonPageHeader from "../../../components/IonPageHeader";
+
+const gameConfig: GameInstance = {
+    type: Phaser.AUTO,
+    parent: 'phaser-quantumminds',
+    width: 400,
+    height: 600,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
+    scene: Game,
+    plugins: {
+        scene: [{
+            plugin: BoardPlugin,
+            mapping: 'rexBoard'
+        }]
+    }
+}
 
 const QuantumMinds: React.FC = () => {
+    const gameRef = useRef<HTMLIonPhaserElement | any>(null)
+    const [game, setGame] = useState<GameInstance>()
+    const [initialize, setInitialize] = useState(false)
     const [displayMode, setDisplayMode] = useState('INTRO');
+
+    const destroy = () => {
+        gameRef.current?.destroy()
+        setInitialize(false)
+        setGame(undefined)
+    }
+
+    useEffect(() => {
+        if (initialize) {
+            console.log('init', gameConfig)
+            const game = Object.assign({}, gameConfig);
+            // @ts-ignore
+            game.plugins.scene[0].key = (Math.random() + 1).toString(36).substring(7);
+            setGame(game)
+        }
+    }, [initialize])
+
+    useEffect(() => {
+        return () => {
+            destroy()
+        }
+    }, []);
+    useIonViewWillLeave(destroy)
     const title: string = 'Quantum Minds';
-    const videoId: string = '7iuT3h0Zx18';
+
     if (displayMode === 'INTRO') {
         return (
             <GameIntro
@@ -16,11 +69,15 @@ const QuantumMinds: React.FC = () => {
                 content={(<Fragment>
                     <h2>Enjeu</h2>
                     <div>Etude de la perception humaine des couleurs et des nuances.</div>
+                    <hr/>
                     <h2>Briefing mission</h2>
                     <div>Franchir la porte dont la couleur se rapproche le plus de celle du ciel.</div>
                 </Fragment>)}
                 baseline="Resoudre cette enigme pour dejouer la mécanique infernale"
-                onClick={() => setDisplayMode('GAME')}
+                onClick={() => {
+                    setDisplayMode('GAME')
+                    setTimeout(() => setInitialize(true), 200);
+                }}
             />
         );
     }
@@ -29,33 +86,36 @@ const QuantumMinds: React.FC = () => {
         return (
             <GameResult
                 title={title}
-                gameTime={231}
-                ranking={133}
+                gameTime={123}
+                ranking={12333}
                 rankingBase={153786}
-                dataImpact={"1.5 Mo de données récoltés"}
-                collectedPoints={6}
+                dataImpact={"1 Mo de données récoltés"}
+                collectedPoints={12}
             />
         );
     }
 
     return (
-        <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>{title}</IonTitle>
-                    <IonRouterLink routerLink={"/"}>Home</IonRouterLink>
-                </IonToolbar>
-            </IonHeader>
-            <IonContent fullscreen className="center">
-                <YoutubeEmbed embedId={videoId}/>
-                <div className={"center"}>
-                    <IonButton color="light" onClick={() => setDisplayMode('GAME_RESULT')}>Fin de jeu</IonButton>
-                </div>
+        <IonPage className="main">
+            <IonPageHeader title={title}/>
+            <IonContent fullscreen className="center black-background">
+                {initialize && (<div className="center">
+                    <IonButton
+                        color="white"
+                        fill={"outline"}
+                        expand="block"
+                        onClick={() => setDisplayMode('GAME_RESULT')}
+                    >
+                        Fin de jeu
+                    </IonButton>
+                </div>)}
+                <div id="phaser-quantumminds"></div>
+                {initialize && <IonPhaser ref={gameRef} game={game} initialize={initialize}/>}
             </IonContent>
             <IonFooter>
             </IonFooter>
         </IonPage>
     );
-};
+}
 
 export default QuantumMinds;

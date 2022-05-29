@@ -2,23 +2,19 @@ import {
     IonButton,
     IonContent,
     IonFooter,
-    IonHeader,
     IonPage,
-    IonRouterLink,
-    IonTitle,
-    IonToolbar,
     useIonViewWillLeave
 } from '@ionic/react';
 import GameIntro from "../../../components/GameIntro/GameIntro";
 import {Fragment, useEffect, useRef, useState} from "react";
 import GameResult from "../../../components/GameResult/GameResult";
-import './Hexxed.css';
 import Game from "./Game";
 import {GameInstance, IonPhaser} from "@ion-phaser/react";
 import Phaser from "phaser";
 import BoardPlugin from "phaser3-rex-plugins/plugins/board-plugin";
+import IonPageHeader from "../../../components/IonPageHeader";
 
-const gameConfig:GameInstance = {
+const gameConfig: GameInstance = {
     type: Phaser.AUTO,
     parent: 'phaser-hexxed',
     width: 400,
@@ -37,7 +33,7 @@ const gameConfig:GameInstance = {
 }
 
 const Hexxed: React.FC = () => {
-    const gameRef = useRef<HTMLIonPhaserElement|any>(null)
+    const gameRef = useRef<HTMLIonPhaserElement | any>(null)
     const [game, setGame] = useState<GameInstance>()
     const [initialize, setInitialize] = useState(false)
     const [displayMode, setDisplayMode] = useState('INTRO');
@@ -50,19 +46,19 @@ const Hexxed: React.FC = () => {
 
     useEffect(() => {
         if (initialize) {
-            console.log('init',gameConfig)
+            console.log('init', gameConfig)
             const game = Object.assign({}, gameConfig);
             // @ts-ignore
-            game.plugins.scene[0].key=(Math.random() + 1).toString(36).substring(7);
+            game.plugins.scene[0].key = (Math.random() + 1).toString(36).substring(7);
             setGame(game)
         }
-    },[initialize])
+    }, [initialize])
 
     useEffect(() => {
         return () => {
             destroy()
         }
-    },[]);
+    }, []);
     useIonViewWillLeave(destroy)
     const title: string = 'Hexxed';
 
@@ -73,13 +69,14 @@ const Hexxed: React.FC = () => {
                 content={(<Fragment>
                     <h2>Enjeu</h2>
                     <div>Etude de la perception humaine des couleurs et des nuances.</div>
+                    <hr/>
                     <h2>Briefing mission</h2>
                     <div>Franchir la porte dont la couleur se rapproche le plus de celle du ciel.</div>
                 </Fragment>)}
                 baseline="Resoudre cette enigme pour dejouer la mécanique infernale"
                 onClick={() => {
                     setDisplayMode('GAME')
-                    setTimeout(()=>setInitialize(true),200);
+                    setTimeout(() => setInitialize(true), 200);
                 }}
             />
         );
@@ -99,17 +96,21 @@ const Hexxed: React.FC = () => {
     }
 
     return (
-        <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>{title}</IonTitle>
-                    <IonRouterLink routerLink={"/"}>Home</IonRouterLink>
-                </IonToolbar>
-            </IonHeader>
+        <IonPage className="main">
+            <IonPageHeader title={title}/>
             <IonContent fullscreen className="center black-background">
-                { initialize && <IonButton color="light" onClick={() => setDisplayMode('GAME_RESULT')}>Fin de jeu</IonButton>}
+                {initialize && (<div className="center">
+                    <IonButton
+                        color="white"
+                        fill={"outline"}
+                        expand="block"
+                        onClick={() => setDisplayMode('GAME_RESULT')}
+                    >
+                        Fin de jeu
+                    </IonButton>
+                </div>)}
                 <div id="phaser-hexxed"></div>
-                { initialize && <IonPhaser ref={gameRef} game={game} initialize={initialize}/>}
+                {initialize && <IonPhaser ref={gameRef} game={game} initialize={initialize}/>}
             </IonContent>
             <IonFooter>
             </IonFooter>

@@ -1,0 +1,126 @@
+.page-header {
+  padding: 1em;
+
+  ion-header {
+    width: 100%;
+  }
+
+  ion-title {
+    text-align: right;
+    padding-right: 1em;
+  }
+}
+
+.main {
+  ion-button {
+    padding-left: 1em;
+    width: 90%;
+  }
+}
+
+.homepage {
+  ion-header {
+    padding: 1em;
+  }
+
+  hr {
+    border-bottom: 1px solid white;
+    margin-left: 1.0em;
+    margin-right: 1.0em;
+  }
+
+  ion-content h1 {
+    padding-left: 0.5em;
+    font-weight: normal;
+    font-size: 37px;
+    color: white;
+    text-shadow: 1px 0 0 #000;
+    line-height: 1.5em;
+  }
+
+  ion-content h2 {
+    font-size: xx-large;
+    font-weight: bolder;
+    color: white;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 2em;
+    text-shadow: 1px 0 0 #000
+  }
+}
+
+.gameIntro, .gameResult, .board {
+  hr {
+    border-bottom: 1px solid white;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    margin-left: 1.0em;
+    margin-right: 1.0em;
+  }
+
+  .title {
+    margin-top: 10px;
+    color: white;
+    padding: 20px;
+    font-size: larger;
+    text-align: left;
+    font-weight: normal;
+  }
+
+  .baseline {
+    margin-top: 10px;
+    margin-left: 0.5em;
+    text-align: left;
+    font-weight: lighter;
+    font-size: xxx-large;
+  }
+
+  .brief {
+    color: white;
+
+    h2 {
+      margin-left: 0.5em;
+      font-weight: bolder;
+      font-size: xx-large;
+    }
+
+    div {
+      margin-left: 1em;
+      font-weight: normal;
+      font-size: larger;
+    }
+  }
+
+
+  .center {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+.gamePreview {
+
+  .title {
+    z-index: 10;
+  }
+
+  ion-img {
+    z-index: 5;
+    /*transition: transform .8s; !* Animation *!*/
+    /*object-fit: cover;*/
+  }
+
+  ion-img::part(image) {
+    border-radius: 30px !important;
+  }
+
+  .title {
+    width: 100%;
+    font-size: xx-large;
+    font-weight: normal;
+    text-align: center;
+    padding-bottom: 20px;
+    text-shadow: 1px 0 0 #000
+  }
+
+}

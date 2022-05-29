@@ -14,7 +14,7 @@ import IonPageHeader from "../../../components/IonPageHeader";
 
 const gameConfig:GameInstance = {
     type: Phaser.AUTO,
-    parent: 'phaser-atopia',
+    parent: 'phaser-invaders',
     width: 400,
     height: 600,
     scale: {
@@ -24,7 +24,7 @@ const gameConfig:GameInstance = {
     scene: Game,
 }
 
-const Hexxed: React.FC = () => {
+const Invaders: React.FC = () => {
     const gameRef = useRef<HTMLIonPhaserElement|any>(null)
     const [game, setGame] = useState<GameInstance>()
     const [initialize, setInitialize] = useState(false)
@@ -100,7 +100,7 @@ const Hexxed: React.FC = () => {
                         Fin de jeu
                     </IonButton>
                 </div>)}
-                <div id="phaser-atopia"></div>
+                <div id="phaser-invaders"></div>
                 { initialize && <IonPhaser ref={gameRef} game={game} initialize={initialize}/>}
             </IonContent>
             <IonFooter>
@@ -109,4 +109,4 @@ const Hexxed: React.FC = () => {
     );
 }
 
-export default Hexxed;
+export default Invaders;

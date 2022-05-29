@@ -1,12 +1,11 @@
-import './Home.css';
 import {
     IonContent,
     IonPage,
-    IonTitle,
     IonItem,
     IonLabel,
-    IonButton, IonInput, IonHeader, useIonRouter
+    IonButton, IonInput, useIonRouter
 } from '@ionic/react';
+import IonPageHeader from "../components/IonPageHeader";
 
 
 const Registration: React.FC = () => {
@@ -15,12 +14,13 @@ const Registration: React.FC = () => {
         router.push('/board', "forward", "push")
     }
     return (
-        <IonPage>
-            <IonHeader>
-                <IonTitle>Creer un compte</IonTitle>
-            </IonHeader>
+        <IonPage className="main" >
+            <IonPageHeader title={""}/>
             <IonContent>
                 <form className="ion-padding">
+                    <h1>
+                        Créer un compte
+                    </h1>
                     <IonItem>
                         <IonLabel position="floating">Username</IonLabel>
                         <IonInput/>
@@ -29,7 +29,7 @@ const Registration: React.FC = () => {
                         <IonLabel position="floating">Password</IonLabel>
                         <IonInput type="password"/>
                     </IonItem>
-                    <IonButton onClick={onRegister} className="ion-margin-top">
+                    <IonButton className="ion-margin-top"color="white" fill={"outline"} expand="block" onClick={onRegister}>
                         Je m'engage
                     </IonButton>
                 </form>

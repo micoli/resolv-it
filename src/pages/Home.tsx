@@ -1,9 +1,9 @@
-import './Home.css';
+import './App.scss';
 import {
     IonContent,
     IonHeader,
     IonPage,
-    IonGrid, IonRow, IonCol, IonButton
+    IonGrid, IonRow, IonCol, IonButton, IonImg
 } from '@ionic/react';
 
 import 'swiper/css';
@@ -15,6 +15,7 @@ import '@ionic/react/css/ionic-swiper.css';
 
 import GamePreview from "../components/GamePreview/GamePreview";
 import {useIonRouter} from "@ionic/react";
+import {useEffect, useState} from "react";
 
 const Home: React.FC = () => {
     const games = [{
@@ -29,6 +30,10 @@ const Home: React.FC = () => {
         target: "/games/quantumMinds",
         previewUrl: "/assets/quantumMindsPreview.png",
         title: "Quantum Minds",
+    }, {
+        target: "/games/invaders",
+        previewUrl: "/assets/invadersPreview.png",
+        title: "Invaders",
     }]
     const router = useIonRouter();
     const onRegister = ()=>{
@@ -41,13 +46,34 @@ const Home: React.FC = () => {
     const onGameClick = (target:string) => {
         router.push(target, "forward", "push");
     }
+    const [displaySplash, setDisplaySplash] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDisplaySplash(false)
+        }, 1200);
+        return () => clearTimeout(timer);
+    }, [displaySplash]);
+
+    if(displaySplash){
+        return (
+            <IonPage className={"main homepage"}>
+                <IonContent fullscreen>
+                    <IonImg style={{width: "100%", paddingTop: 200}} src={"/assets/resol-vite.logo.png"}/>
+                </IonContent>
+            </IonPage>
+        )
+    }
     return (
-        <IonPage className={"homepage"}>
+        <IonPage className={"main homepage"}>
             <IonHeader>
+                <IonImg style={{width:"50%"}} src={"/assets/resol-vite.logo.png"} />
             </IonHeader>
             <IonContent fullscreen>
-                <h1>Resol'Vite</h1>
-                <h2>PLAY FOR SCIENCE, PLAY FOR GOOD !</h2>
+                <hr />
+                <h1>PLAY FOR SCIENCE,<br/>PLAY FOR GOOD !</h1>
+                <hr />
+
                 <IonGrid>
                     <IonRow>
                         {games.map((game, index) =>
@@ -62,8 +88,8 @@ const Home: React.FC = () => {
                     </IonRow>
                 </IonGrid>
                 <div className={"center"}>
-                    <IonButton color="light" onClick={onRegister}>S'inscire</IonButton>
-                    <IonButton color="light" onClick={onLogin}>Se connecter</IonButton>
+                    <IonButton color="white" fill={"outline"} expand="block" onClick={onRegister}>S'inscire</IonButton>
+                    <IonButton color="white" fill={"outline"} expand="block" onClick={onLogin}>Se connecter</IonButton>
                 </div>
             </IonContent>
         </IonPage>

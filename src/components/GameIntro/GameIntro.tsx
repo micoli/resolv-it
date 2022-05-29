@@ -1,6 +1,6 @@
 import {IonButton, IonContent, IonFooter, IonHeader, IonPage, IonRouterLink, IonTitle, IonToolbar} from '@ionic/react';
-import './GameIntro.css';
 import {ReactChild} from "react";
+import IonPageHeader from "../IonPageHeader";
 
 type GameIntroProps = {
     title: string;
@@ -10,25 +10,19 @@ type GameIntroProps = {
 }
 const GameIntro: React.FC<GameIntroProps> = ({title, content, baseline, onClick}) => {
     return (
-        <IonPage className="gameIntro">
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>{title}</IonTitle>
-                    <IonRouterLink routerLink={"/"}>Home</IonRouterLink>
-                </IonToolbar>
-            </IonHeader>
+        <IonPage className="main gameIntro">
+            <IonPageHeader title={title} />
             <IonContent fullscreen>
                 <div className="title">{title}</div>
-                <div className="brief">
-                    {content}
-                </div>
+                <hr/>
+                <div className="baseline">{baseline}</div>
+                <hr/>
+                <div className="brief">{content}</div>
+                <hr/>
                 <div className="center">
-                    <IonButton color="light" onClick={onClick}>Lancer</IonButton>
+                    <IonButton color="white" fill={"outline"} expand="block" onClick={onClick}>Lancer</IonButton>
                 </div>
             </IonContent>
-            <IonFooter>
-                <div className="baseline">{baseline}</div>
-            </IonFooter>
         </IonPage>
 );
 };

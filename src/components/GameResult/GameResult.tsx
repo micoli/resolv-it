@@ -1,14 +1,10 @@
 import {
     IonButton,
     IonContent,
-    IonHeader,
     IonPage,
-    IonRouterLink,
-    IonTitle,
-    IonToolbar,
     useIonRouter
 } from '@ionic/react';
-import './GameResult.css';
+import IonPageHeader from "../IonPageHeader";
 
 type GameResultProps = {
     title: string;
@@ -35,31 +31,30 @@ const GameResult: React.FC<GameResultProps> =
             router.push('/login', "forward", "push")
         }
         return (
-            <IonPage className="gameResult">
-                <IonHeader>
-                    <IonToolbar>
-                        <IonTitle>{title}</IonTitle>
-                        <IonRouterLink routerLink={"/"}>Home</IonRouterLink>
-                    </IonToolbar>
-                </IonHeader>
+            <IonPage className="main gameResult">
+                <IonPageHeader title={""} />
                 <IonContent fullscreen>
                     <div className="title">{title}</div>
-                    <div className="background">
+                    <div className="brief">
                         <h2>Temps de jeu</h2>
                         <div>{gameTime} secondes</div>
+                        <hr/>
 
                         <h2>Classement</h2>
                         <div>{ranking}/{rankingBase}</div>
+                        <hr/>
 
                         <h2>Impact sur la science</h2>
                         <div>{dataImpact}</div>
+                        <hr/>
 
                         <h2>Points Resol'vite</h2>
                         <div>{collectedPoints}</div>
+                        <hr/>
                     </div>
                     <div className={"center"}>
-                        <IonButton color="light" onClick={onRegister}>S'inscire</IonButton>
-                        <IonButton color="light" onClick={onLogin}>Se connecter</IonButton>
+                        <IonButton color="white" fill={"outline"} expand="block" onClick={onRegister}>S'inscrire</IonButton>
+                        <IonButton color="white" fill={"outline"} expand="block" onClick={onLogin}>Se connecter</IonButton>
                     </div>
                 </IonContent>
             </IonPage>

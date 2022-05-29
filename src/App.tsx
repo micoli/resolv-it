@@ -29,6 +29,7 @@ import Hexxed from "./pages/games/Hexxed/Hexxed";
 import Board from "./pages/Board";
 import QuantumMinds from "./pages/games/QuantumMinds/QuantumMinds";
 import Apetopia from "./pages/games/Apetopia/Apetopia";
+import Invaders from "./pages/games/Invaders/Invaders";
 
 setupIonicReact();
 
@@ -48,6 +49,9 @@ const App: React.FC = () => (
                     </Route>
                     <Route exact path="/games/quantumMinds">
                         <QuantumMinds/>
+                    </Route>
+                    <Route exact path="/games/invaders">
+                        <Invaders/>
                     </Route>
                     <Route path="/registration">
                         <Registration/>

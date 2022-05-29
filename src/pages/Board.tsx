@@ -1,11 +1,10 @@
-import './Home.css';
 import {
     IonContent,
     IonPage,
     IonTitle,
     IonButton, IonHeader, useIonRouter
 } from '@ionic/react';
-import './Board.css';
+import IonPageHeader from "../components/IonPageHeader";
 
 const Board: React.FC = () => {
     const router = useIonRouter();
@@ -13,15 +12,11 @@ const Board: React.FC = () => {
         router.push('/home', "forward", "push")
     }
     return (
-        <IonPage >
-            <IonHeader className="board">
-                <IonTitle>Board</IonTitle>
-            </IonHeader>
-            <IonContent className="board">
+        <IonPage className="main board" >
+            <IonPageHeader title={"Board"} />
+            <IonContent className="brief">
                 <h1>Vous avez fait gagner 12 ans, 4 mois et 20 heures à la recherche !</h1>
-                <div className="center">
-                    <IonButton color="light" onClick={onHome}>Home</IonButton>
-                </div>
+                <hr/>
                 <h2>Mes datas</h2>
                 <ul>
                     <li>Juliette MAC KINSEY</li>
@@ -33,6 +28,7 @@ const Board: React.FC = () => {
                     <li>Non sportive</li>
                     <li>Vos centres d’intérêts : climat, biologie du cancer</li>
                 </ul>
+                <hr/>
                 <h2>Mon Implication</h2>
                 <div>
                     <ul>
@@ -48,6 +44,7 @@ const Board: React.FC = () => {
                         <li>Data traitées : 50 Mo</li>
                     </ul>
                 </div>
+                <hr/>
                 <h2>Titres</h2>
                 <ul>
                     <li>
@@ -66,9 +63,7 @@ const Board: React.FC = () => {
                         <div>Thématique: Science comportementale</div>
                     </li>
                 </ul>
-                <div className="center">
-                    <IonButton color="light" onClick={onHome}>Home</IonButton>
-                </div>
+                <hr/>
             </IonContent>
         </IonPage>
     );
